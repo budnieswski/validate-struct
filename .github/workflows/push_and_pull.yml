@@ -2,7 +2,14 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'go.mod'
+      - '**.go'
+
   pull_request:
+    paths:
+      - 'go.mod'
+      - '**.go'
 
 jobs:
   test:
