@@ -39,7 +39,7 @@ func Validate(data []byte, schema interface{}) map[string]interface{} {
 	// return realValidateType(dataReflected, schemaReflectedType).(map[string]interface{})
 }
 
-func realValidateType(data reflect.Value, schema reflect.Type) any {
+func realValidateType(data reflect.Value, schema reflect.Type) interface{} {
 	switch schema.Kind() {
 	case reflect.Struct:
 		errs := make(map[string]interface{}, 0)
