@@ -43,4 +43,26 @@ func TestValidate(test *testing.T) {
 			}
 		})
 	})
+
+	test.Run("isCompatibleType", func(test *testing.T) {
+		test.Run("Should return true when values are compatible", func(test *testing.T) {
+			value := reflect.ValueOf(123)
+			expected := reflect.TypeOf(123.45)
+			compatible := isCompatibleType(value, expected)
+
+			if !compatible {
+				test.Errorf("Values are not compatible, expected: %s - given: %s", expected.Kind(), value.Kind())
+			}
+		})
+
+		test.Run("Should return false when values are not compatible", func(test *testing.T) {
+			value := reflect.ValueOf("123")
+			expected := reflect.TypeOf(123.45)
+			compatible := isCompatibleType(value, expected)
+
+			if compatible {
+				test.Errorf("Values are not compatible, expected: %s - given: %s", expected.Kind(), value.Kind())
+			}
+		})
+	})
 }
