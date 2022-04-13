@@ -67,3 +67,4 @@ func main() {
 - [ ] Create doc.go
 - [ ] Make validate benchmarks
 - [ ] Improve performance
+- [ ] Create a way for the user add custom rules
