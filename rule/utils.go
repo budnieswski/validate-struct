@@ -25,16 +25,26 @@ var (
 
 func isEmpty(x reflect.Value) bool {
 
-	if x.Kind() == reflect.Invalid {
-		return true
-	}
-
 	switch x.Kind() {
-	case reflect.Array, reflect.Map, reflect.Slice:
+	case reflect.Invalid:
+		return true
+	case reflect.String, reflect.Array:
 		return x.Len() == 0
+	case reflect.Map, reflect.Slice:
+		return x.Len() == 0 || x.IsNil()
+	case reflect.Bool:
+		return !x.Bool()
+	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+		return x.Int() == 0
+	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Uintptr:
+		return x.Uint() == 0
+	case reflect.Float32, reflect.Float64:
+		return x.Float() == 0
+	case reflect.Interface, reflect.Ptr:
+		return x.IsNil()
 	}
 
-	return reflect.DeepEqual(x, reflect.Zero(x.Type())) || strings.HasPrefix(x.String(), "0001-01-01")
+	return reflect.DeepEqual(x.Interface(), reflect.Zero(x.Type()).Interface()) || strings.HasPrefix(x.String(), "0001-01-01")
 }
 
 func isIP(ip string) bool {
