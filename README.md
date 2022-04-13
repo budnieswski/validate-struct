@@ -65,5 +65,5 @@ func main() {
 	- [ ] Coverage
 	- [ ] CI
 - [ ] Create doc.go
-- [ ] Make validation benchmarks
+- [ ] Make validate benchmarks
 - [ ] Improve performance
