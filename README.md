@@ -61,8 +61,8 @@ func main() {
 	- [ ] Issue
 	- [ ] Pull request
 - [ ] Create Github workflows
-	- [ ] Tests
-	- [ ] Coverage
+	- [X] Tests
+	- [X] Coverage
 	- [ ] CI
 - [ ] Create doc.go
 - [ ] Make validate benchmarks
