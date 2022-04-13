@@ -56,6 +56,36 @@ func TestValidate(test *testing.T) {
 		})
 	})
 
+	test.Run("validateRule", func(test *testing.T) {
+		test.Run("Should return a true to Required validation", func(test *testing.T) {
+			value := reflect.ValueOf("foo")
+			valid, err := validateRule(value, "required")
+
+			if err != nil {
+				test.Errorf("Validation failed: %s", err.Error())
+				return
+			}
+
+			if valid == false {
+				test.Errorf("Failed on validation")
+			}
+		})
+
+		test.Run("Should return a false to Required validation", func(test *testing.T) {
+			value := reflect.ValueOf("")
+			valid, err := validateRule(value, "required")
+
+			if err == nil {
+				test.Error("Validation must be failed but returned nil error")
+				return
+			}
+
+			if valid {
+				test.Errorf("Failed on validation")
+			}
+		})
+	})
+
 	test.Run("getRuleValidator", func(test *testing.T) {
 		test.Run("Should return a DefaultRule", func(test *testing.T) {
 			expectedType := reflect.TypeOf(Rule.DefaultRule{})
