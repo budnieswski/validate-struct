@@ -36,7 +36,7 @@ jobs:
         uses: shogo82148/actions-goveralls@v1
         with:
           path-to-profile: profile.cov
-          flag-name: go-${{ runner.os }}-${{ matrix.go_version }}
+          flag-name: go-${{ runner.os }}-${{ matrix.go-version }}
           parallel: true
 
   finish:
