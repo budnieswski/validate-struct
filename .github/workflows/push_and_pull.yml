@@ -6,7 +6,7 @@ on:
 
 jobs:
   test:
-    name: Test on Go ${{ matrix.go_version }} at ${{ matrix.os }}
+    name: Test on Go v${{ matrix.go-version }} at ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
