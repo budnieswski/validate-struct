@@ -1,3 +1,5 @@
+name: Test
+
 on:
   push:
     branches:
@@ -5,7 +7,6 @@ on:
     paths:
       - 'go.mod'
       - '**.go'
-
   pull_request:
     paths:
       - 'go.mod'
