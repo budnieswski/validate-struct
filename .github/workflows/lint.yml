@@ -6,7 +6,13 @@ on:
       - main
     tags:
       - v*
+    paths:
+      - 'go.mod'
+      - '**.go'
   pull_request:
+    paths:
+      - 'go.mod'
+      - '**.go'
 
 permissions:
   contents: read
