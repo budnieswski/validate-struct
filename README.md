@@ -1,9 +1,12 @@
 # Validate Struct
-![Project status](https://img.shields.io/badge/version-0.1.0-green.svg)
-[![Coverage Status](https://coveralls.io/repos/github/budnieswski/validate-struct/badge.svg?branch=main)](https://coveralls.io/github/budnieswski/validate-struct?branch=main)
+[![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/budnieswski/validate-struct?style=flat-square)](https://github.com/budnieswski/validate-struct/tags)
+[![Coveralls](https://img.shields.io/coveralls/github/budnieswski/validate-struct?style=flat-square)](https://coveralls.io/github/budnieswski/validate-struct?branch=main)
 [![Go Report Card](https://goreportcard.com/badge/github.com/budnieswski/validate-struct)](https://goreportcard.com/report/github.com/budnieswski/validate-struct)
 [![GoDoc](https://godoc.org/github.com/budnieswski/validate-struct?status.svg)](https://pkg.go.dev/github.com/budnieswski/validate-struct)
-![License](https://img.shields.io/dub/l/vibe-d.svg)
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/budnieswski/validate-struct?style=flat-square)
+![License](https://img.shields.io/dub/l/vibe-d.svg?style=flat-square)
+
+
 
 
 ## Contents
