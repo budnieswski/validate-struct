@@ -3,7 +3,7 @@
 [![Coveralls](https://img.shields.io/coveralls/github/budnieswski/validate-struct?style=flat-square)](https://coveralls.io/github/budnieswski/validate-struct?branch=main)
 [![Go Report Card](https://goreportcard.com/badge/github.com/budnieswski/validate-struct)](https://goreportcard.com/report/github.com/budnieswski/validate-struct)
 [![GoDoc](https://godoc.org/github.com/budnieswski/validate-struct?status.svg)](https://pkg.go.dev/github.com/budnieswski/validate-struct)
-[![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/budnieswski/validate-struct?style=flat-square)])(#)
+[![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/budnieswski/validate-struct?style=flat-square)](#)
 [![License](https://img.shields.io/dub/l/vibe-d.svg?style=flat-square)](#)
 
 
