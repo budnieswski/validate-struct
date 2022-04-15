@@ -10,6 +10,7 @@ import (
 
 func TestValidate(test *testing.T) {
 	var fixtureInputMap interface{}
+	var fixtureInputReflected reflect.Value
 	fixtureInputByte := []byte(`
 		{
 			"id": 12,
@@ -17,8 +18,12 @@ func TestValidate(test *testing.T) {
 			"status": true
 		}
 	`)
-	json.Unmarshal(fixtureInputByte, &fixtureInputMap)
-	fixtureInputReflected := reflect.ValueOf(fixtureInputMap)
+
+	if err := json.Unmarshal(fixtureInputByte, &fixtureInputMap); err != nil {
+		test.Errorf("Failed to decode fixture: %s", err.Error())
+	}
+
+	fixtureInputReflected = reflect.ValueOf(fixtureInputMap)
 
 	test.Run("findOnMap", func(test *testing.T) {
 		test.Run("Should return a correctly field value", func(test *testing.T) {
