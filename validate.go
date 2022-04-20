@@ -15,8 +15,8 @@ const TAG_NAME = "validate"
 var TIME_TYPE = reflect.TypeOf(time.Time{})
 
 type ValidationResult struct {
-	Errors   map[string]interface{}
-	HasError bool
+	Errors   map[string]interface{} `json:"errors"`
+	HasError bool                   `json:"hasError"`
 }
 
 func Validate(data []byte, schema interface{}) ValidationResult {
