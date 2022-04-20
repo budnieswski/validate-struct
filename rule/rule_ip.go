@@ -15,7 +15,7 @@ func (v IPRule) Validate(value reflect.Value) (bool, error) {
 	}
 
 	if !isIP(fmt.Sprintf("%v", value)) {
-		return false, fmt.Errorf("must be a valid IP address")
+		return false, fmt.Errorf("must be a valid IP")
 	}
 
 	return true, nil

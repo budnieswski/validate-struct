@@ -94,6 +94,10 @@ func realValidateType(data reflect.Value, schema reflect.Type) interface{} {
 			}
 		}
 
+		if len(errs) < 1 {
+			return nil
+		}
+
 		return errs
 	case reflect.Array, reflect.Slice:
 		errs := make(map[int]interface{}, 0)
@@ -223,6 +227,12 @@ func getRuleValidator(rule string) Rule.Interface {
 		return Rule.ENumRule{
 			ValidValues: validValues,
 		}
+	case "ip":
+		return Rule.IPRule{}
+	case "ipv4":
+		return Rule.IPv4Rule{}
+	case "ipv6":
+		return Rule.IPv6Rule{}
 	}
 
 	return Rule.DefaultRule{}

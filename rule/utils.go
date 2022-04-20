@@ -1,8 +1,8 @@
 package rule
 
 import (
+	"net"
 	"reflect"
-	"regexp"
 	"strings"
 	"time"
 )
@@ -20,11 +20,9 @@ var (
 		"02-01-2006",
 		"02/01/2006",
 	}
-	regexIP = regexp.MustCompile(`^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$`)
 )
 
 func isEmpty(x reflect.Value) bool {
-
 	switch x.Kind() {
 	case reflect.Invalid:
 		return true
@@ -47,8 +45,17 @@ func isEmpty(x reflect.Value) bool {
 	return reflect.DeepEqual(x.Interface(), reflect.Zero(x.Type()).Interface()) || strings.HasPrefix(x.String(), "0001-01-01")
 }
 
-func isIP(ip string) bool {
-	return regexIP.MatchString(ip)
+// checks if is either IP version 4 or 6
+func isIP(str string) bool {
+	return net.ParseIP(str) != nil
+}
+
+func isIPv4(str string) bool {
+	return net.ParseIP(str) != nil && strings.Contains(str, ".")
+}
+
+func isIPv6(str string) bool {
+	return net.ParseIP(str) != nil && strings.Contains(str, ":")
 }
 
 func isDate(date string) bool {
