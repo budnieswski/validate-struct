@@ -14,29 +14,47 @@ const TAG_NAME = "validate"
 
 var TIME_TYPE = reflect.TypeOf(time.Time{})
 
-func Validate(data []byte, schema interface{}) map[string]interface{} {
+type ValidationResult struct {
+	Errors   map[string]interface{}
+	HasError bool
+}
+
+func Validate(data []byte, schema interface{}) ValidationResult {
 	var dataDecoded interface{}
 
-	schemaReflectedType := reflect.TypeOf(schema)
+	schemaReflectedValue := reflect.ValueOf(schema)
+	schemaReflectedType := schemaReflectedValue.Type()
+
+	if schemaReflectedType.Kind() == reflect.Ptr {
+		schemaReflectedType = reflect.Indirect(schemaReflectedValue).Type()
+	}
 
 	if schemaReflectedType.Kind() != reflect.Struct {
 		panic("wrong schema, only accept STRUCT as schema type")
 	}
 
 	if err := json.Unmarshal(data, &dataDecoded); err != nil {
-		return map[string]interface{}{
-			"_": err.Error(),
+		return ValidationResult{
+			Errors: map[string]interface{}{
+				"_": err.Error(),
+			},
+			HasError: true,
 		}
 	}
 
 	dataReflected := reflect.ValueOf(dataDecoded)
 
 	if rs := realValidateType(dataReflected, schemaReflectedType); rs != nil {
-		return rs.(map[string]interface{})
+		return ValidationResult{
+			Errors:   rs.(map[string]interface{}),
+			HasError: true,
+		}
 	}
 
-	return map[string]interface{}{}
-	// return realValidateType(dataReflected, schemaReflectedType).(map[string]interface{})
+	return ValidationResult{
+		Errors:   nil,
+		HasError: false,
+	}
 }
 
 func realValidateType(data reflect.Value, schema reflect.Type) interface{} {
