@@ -66,7 +66,7 @@ func realValidateType(data reflect.Value, schema reflect.Type) interface{} {
 			field := schema.Field(i)
 			fieldType := field.Type
 			fieldTag := field.Tag.Get(TAG_NAME)
-			fieldName := field.Tag.Get("json")
+			fieldName := strings.Split(field.Tag.Get("json"), ",")[0]
 			dataValue := findOnMap(data, fieldName)
 
 			if fieldTag != "" {
