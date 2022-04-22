@@ -2,6 +2,7 @@ package validate
 
 import (
 	"encoding/json"
+	"fmt"
 	"reflect"
 	"strconv"
 	"strings"
@@ -164,8 +165,23 @@ func isCompatibleType(data reflect.Value, expected reflect.Type) bool {
 		return true
 	}
 
+	// Expected Struct and received Map
 	if expected.Kind() == reflect.Struct && data.Kind() == reflect.Map {
 		return true
+	}
+
+	// Check Int variations
+	switch expected.Kind() {
+	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+		dataString := strings.Replace(fmt.Sprintf("%f", data.Interface()), ".000000", "", 1)
+		dataInt, err := strconv.ParseInt(dataString, 10, 64)
+
+		return err == nil && !reflect.Zero(expected).OverflowInt(dataInt)
+	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Uintptr:
+		dataString := strings.Replace(fmt.Sprintf("%f", data.Interface()), ".000000", "", 1)
+		dataInt, err := strconv.ParseUint(dataString, 10, 64)
+
+		return err == nil && !reflect.Zero(expected).OverflowUint(dataInt)
 	}
 
 	return data.CanConvert(expected)
