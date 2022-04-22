@@ -149,7 +149,7 @@ func TestValidate(test *testing.T) {
 
 	test.Run("isCompatibleType", func(test *testing.T) {
 		test.Run("Should return true when given are compatible", func(test *testing.T) {
-			value := reflect.ValueOf(123)
+			value := reflect.ValueOf(123.0)
 			expected := reflect.TypeOf(123.45)
 			compatible := isCompatibleType(value, expected)
 
@@ -158,8 +158,38 @@ func TestValidate(test *testing.T) {
 			}
 		})
 
+		test.Run("Should return false when given are not compatible", func(test *testing.T) {
+			value := reflect.ValueOf(123.45)
+			expected := reflect.TypeOf(123)
+			compatible := isCompatibleType(value, expected)
+
+			if compatible != false {
+				test.Errorf("Values are compatible, expected: %s - given: %s", expected.Kind(), value.Kind())
+			}
+		})
+
+		test.Run("Should return false when given negative int", func(test *testing.T) {
+			value := reflect.ValueOf(-123.0)
+			expected := reflect.TypeOf(uint(1))
+			compatible := isCompatibleType(value, expected)
+
+			if compatible != false {
+				test.Errorf("Values are compatible, expected: %s - given: %s", expected.Kind(), value.Kind())
+			}
+		})
+
+		test.Run("Should return false when given value overflow bit", func(test *testing.T) {
+			value := reflect.ValueOf(256.0)
+			expected := reflect.TypeOf(uint8(1))
+			compatible := isCompatibleType(value, expected)
+
+			if compatible != false {
+				test.Errorf("Values are compatible, expected: %s - given: %s %v", expected.Kind(), value.Kind(), compatible)
+			}
+		})
+
 		test.Run("Should return true when values types are equal", func(test *testing.T) {
-			value := reflect.ValueOf(123)
+			value := reflect.ValueOf(123.0)
 			expected := reflect.TypeOf(123)
 			compatible := isCompatibleType(value, expected)
 

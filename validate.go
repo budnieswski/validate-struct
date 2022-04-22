@@ -171,6 +171,8 @@ func isCompatibleType(data reflect.Value, expected reflect.Type) bool {
 	}
 
 	// Check Int variations
+	// As it is an internal method, every numeric data value
+	// is float64 provided by json unmarshal
 	switch expected.Kind() {
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
 		dataString := strings.Replace(fmt.Sprintf("%f", data.Interface()), ".000000", "", 1)
