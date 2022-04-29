@@ -138,6 +138,10 @@ func realValidateType(data reflect.Value, schema reflect.Type) interface{} {
 		}
 
 		return errs
+	case reflect.Ptr:
+		schema = findRealTypeOfPointer(schema)
+
+		return realValidateType(data, schema)
 	default:
 		// fmt.Printf("%*s >> Its a default\n", 4, "")
 		// fmt.Printf("%*s DataValue: (%s) - %v\n", 8, "", data.Kind(), data)
@@ -160,10 +164,20 @@ func findOnMap(data reflect.Value, name string) reflect.Value {
 	return reflect.ValueOf(nil)
 }
 
+func findRealTypeOfPointer(pointer reflect.Type) reflect.Type {
+	for ok := pointer.Kind() == reflect.Ptr; ok; ok = pointer.Kind() == reflect.Ptr {
+		pointer = pointer.Elem()
+	}
+
+	return pointer
+}
+
 func isCompatibleType(data reflect.Value, expected reflect.Type) bool {
 	if expected.Kind() == data.Kind() {
 		return true
 	}
+
+	expected = findRealTypeOfPointer(expected)
 
 	// Expected Struct and received Map
 	if expected.Kind() == reflect.Struct && data.Kind() == reflect.Map {
